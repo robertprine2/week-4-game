@@ -175,7 +175,7 @@ $(document).ready(function(){
 			var comp = game.characters[$(".defender").data('index')];
 
 			if (comp.health <= 0) {
-				clicks = 1;
+				game.clicks = 1;
 				$(".defender").hide();
 				if (game.compKills == 2) {
 					$("#attack").hide();
