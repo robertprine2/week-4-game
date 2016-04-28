@@ -35,6 +35,10 @@ $(document).ready(function(){
 			image: "<img src='assets/images/sithjar.jpg'>"}
 		],
 
+		// Variable to switch between button clicks to move the game forward
+
+		clicks: 0,
+
 		// List characters on top of screen for player to choose from
 
 		charList: function() {
@@ -59,40 +63,49 @@ $(document).ready(function(){
 
 		pick: function() {
 			$(".char").on("click", function() {
-				$(this).addClass("mine");
-				$("button.mine").siblings().css({"background-color" : "red"});
-				$("button.mine").siblings().appendTo(".enemy");
-				$(this).appendTo(".your");
-			})
+				if (game.clicks <=0) {
+					game.clicks++;
+					console.log(game.clicks);
+					$(this).removeClass("char").addClass("mine");
+					$("button.mine").siblings().removeClass("char").addClass("enemy");
+					$("button.mine").siblings().appendTo("#enemy");
+					$(this).appendTo(".your");
+				} // End clicks
+			});
 		},
 
-		// Move unpicked characters to available to attack section
+		// Pick character to fight/send to defender
 
-		rejected: function() {
-			
+		enemy: function() {
+			console.log($(".enemy"));
+			$(".enemy").on("click", function() {
+				if (game.clicks > 0) {
+					game.clicks++;
+					console.log(this);
+					$(".enemy").appendTo(".defender");
+				}
+			});
 		},
 
-		// Pick character to defend
+		// Attack Button if no one to fight "There is no enemy here. Pick someone to fight!" otherwise Attack button deals damage, gets counter attacked, updates health on button, updates information about what is going on at the bottom
 
-	} // Ends game object
+
+	}; // Ends game object
 
 	// List char buttons on screen
 
 	game.charList();
 
-	// Pick character to be your character
+	// Pick character to be your character The rest of the chars move to enemies available to attack and get red background
 
 	game.pick();
 
-	// The rest of the chars move to enemies available to attack and get red background
-
-	game.rejected();
-
 	//If there is no one in defender section and you click attack info says "There is no enemy here. Pick someone to fight!"
 
-	// Pick a character to fight moves it to the defender section changes background to black
+	game.enemy();
 
-	// Attack button deals damage, gets counter attacked, updates health on button, updates information about what is going on at the bottom
+	// Pick a character to fight moves it to the defender section changes background to black
+ 
 
 	// If you die "You have been defeated...GAME OVER!!!" add a restart button
 

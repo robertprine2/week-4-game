@@ -24,12 +24,18 @@ p {
 
 /* Character Buttons */
 
-.char img {
+img {
 	height: 100px;
 	width: 100px;
 }
 
+.enemy {
+	background-color: red;
+}
 
+.defender {
+	background-color: black;
+}
 
 /* Social Icons and footer */
 
