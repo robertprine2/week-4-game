@@ -1,0 +1,52 @@
+body {
+	font-family: 'Exo', sans-serif;
+	background-image: url(../images/background.jpg);
+	background-repeat: no-repeat;
+	background-size: 100% 1000px;
+}
+
+h1 {
+	text-align: right;
+	font-size: 60px;
+	margin-right: 100px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+h2 {
+	font-size: 40px;
+	margin: 10px;
+}
+
+
+/* Social Icons and footer */
+
+.center {	
+	margin: 0 auto;
+	text-align: center;
+}
+.socIcon {
+	margin: 20px;
+	display: inline-block;
+}
+
+.social {
+	width: 62px;
+	height: 62px;
+	background-color: white;
+}
+
+.social:hover{
+	transition: all 1s ease;
+	-webkit-transform:scale(1.5); 
+    -moz-transform:scale(1.5); 
+    -ms-transform:scale(1.5); 
+    -o-transform:scale(1.5); 
+     transform:scale(1.5);
+     z-index: +10;
+}
+
+footer {
+	text-align: center;
+	padding: 30px;
+}
