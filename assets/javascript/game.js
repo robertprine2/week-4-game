@@ -97,7 +97,7 @@ $(document).ready(function(){
 		setEnemyListener: function() {
 			
 			$(".enemy").on("click", function() {
-				if (game.clicks > 0) {
+				if (game.clicks == 1) {
 					game.clicks++;
 					console.log(this);
 					console.log(game.clicks);
@@ -177,17 +177,18 @@ $(document).ready(function(){
 			if (comp.health <= 0) {
 				clicks = 1;
 				$(".defender").hide();
-				$("#attack").hide();
-				if (compKills == 2) {
+				if (game.compKills == 2) {
+					$("#attack").hide();
 					$("#attackMsg").html("You won!!! GAME OVER!!!");
 					$("#counterattackMsg").empty();
 					$("#reset").html("<button>Reset</button>");
 				} // End if statement beat them all
 
 				else {
-					compKills++;
+					game.compKills++;
 					$("#attackMsg").html("You have defeated " + comp.name + " . Choose another enemy to fight!");
 					$("#counterattackMsg").empty();
+					game.pick();
 				} // End else beat them all
 			} // End if statement comp 0 hp
 		}, // End function compDeath
@@ -203,19 +204,7 @@ $(document).ready(function(){
 	game.pick();
  
 
-
-	
-
-
-
-	
-
-
-	// call appendTo from enemies able to attack to defender
-
-	// If you have defeated all enemies info: "You won!!! GAME OVER!!!" append restart button under info
-
-	// two reset button areas for what the reset does that means I should make a function for it
+	// *******two reset button areas for what the reset does that means I should make a function for it
 
 
 
