@@ -18,10 +18,10 @@ $(document).ready(function(){
 			image: "<img src='assets/images/c3p0.jpg'>"},
 
 			{name: "King Jar Jar",
-			health: 150,
-			attack: 10,
-			increase: 10,
-			counterattack: 16,
+			health: 140,
+			attack: 8,
+			increase: 8,
+			counterattack: 12,
 			image: "<img src='assets/images/kingjar.jpg'>"},
 
 			{name: "Jar Jar",
@@ -32,10 +32,10 @@ $(document).ready(function(){
 			image: "<img src='assets/images/jar.jpg'>"},
 
 			{name: "Sith Jar Jar",
-			health: 180,
-			attack: 4,
-			increase: 4,
-			counterattack: 32,
+			health: 160,
+			attack: 2,
+			increase: 2,
+			counterattack: 20,
 			image: "<img src='assets/images/sithjar.jpg'>"}
 		],
 
@@ -139,7 +139,7 @@ $(document).ready(function(){
 					// If you beat a character: "You have defeated .name! Choose another enemy to fight!" clicks reset to 1
 
 					game.compDeath();
-					
+
 					// If you die "You have been defeated...GAME OVER!!!" add a restart button
 
 					game.death();
