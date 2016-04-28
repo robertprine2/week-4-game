@@ -11,31 +11,31 @@ $(document).ready(function(){
 		characters: [
 
 			{name: "c3p0",
-			health: 120,
+			health: 100,
 			attack: 20,
 			increase: 20,
-			counterattack: 25,
+			counterattack: 4,
 			image: "<img src='assets/images/c3p0.jpg'>"},
 
 			{name: "King Jar Jar",
-			health: 100,
-			attack: 6,
-			increase: 6,
-			counterattack: 25,
-			image: "<img src='assets/images/kingjar.jpg'>"},
-
-			{name: "Jar Jar",
 			health: 150,
 			attack: 10,
 			increase: 10,
-			counterattack: 25,
+			counterattack: 16,
+			image: "<img src='assets/images/kingjar.jpg'>"},
+
+			{name: "Jar Jar",
+			health: 120,
+			attack: 15,
+			increase: 15,
+			counterattack: 8,
 			image: "<img src='assets/images/jar.jpg'>"},
 
 			{name: "Sith Jar Jar",
 			health: 180,
-			attack: 10,
-			increase: 10,
-			counterattack: 25,
+			attack: 4,
+			increase: 4,
+			counterattack: 32,
 			image: "<img src='assets/images/sithjar.jpg'>"}
 		],
 
@@ -103,6 +103,8 @@ $(document).ready(function(){
 					console.log(game.clicks);
 					$(this).removeClass("enemy").addClass("defender");
 					$(this).appendTo("#defender");
+					$("#attackMsg").empty();
+					$("#counterattackMsg").empty();
 				}
 			});
 		},
@@ -134,13 +136,13 @@ $(document).ready(function(){
 					$(".mine #hp").html(player.health);
 					console.log($(".mine #hp"));
 
-					// If you die "You have been defeated...GAME OVER!!!" add a restart button
-
-					game.death();
-
 					// If you beat a character: "You have defeated .name! Choose another enemy to fight!" clicks reset to 1
 
 					game.compDeath();
+					
+					// If you die "You have been defeated...GAME OVER!!!" add a restart button
+
+					game.death();
 
 				} // End of if statement you have a defender
 
@@ -163,6 +165,7 @@ $(document).ready(function(){
 				$("#attackMsg").html("You have been defeated...GAME OVER!!!");
 				$("#counterattackMsg").empty();
 				$("#reset").html("<button>Reset</button");
+				game.reset();
 			}
 		},
 
@@ -175,13 +178,16 @@ $(document).ready(function(){
 			var comp = game.characters[$(".defender").data('index')];
 
 			if (comp.health <= 0) {
+				
 				game.clicks = 1;
 				$(".defender").hide();
+				$(".defender").removeClass("defender");
 				if (game.compKills == 2) {
 					$("#attack").hide();
 					$("#attackMsg").html("You won!!! GAME OVER!!!");
 					$("#counterattackMsg").empty();
 					$("#reset").html("<button>Reset</button>");
+					game.reset();
 				} // End if statement beat them all
 
 				else {
@@ -192,6 +198,14 @@ $(document).ready(function(){
 				} // End else beat them all
 			} // End if statement comp 0 hp
 		}, // End function compDeath
+
+		// Reset button to reset the game
+
+		reset: function() {
+			$("#reset").on("click", function() {
+				location.reload();
+			})
+		}
 
 	}; // Ends game object
 
