@@ -50,15 +50,58 @@ $(document).ready(function(){
 				c.append('<p>' + game.characters[i].health + '</p>');
 
 				$(".charSel").append(c);
+
 			} //ends for loop
-		} // ends charList method
-	}
+
+		}, // ends charList method
+
+		// Pick character to be your character then move the rest to Enemies available to attack
+
+		pick: function() {
+			$(".char").on("click", function() {
+				$(this).addClass("mine");
+				$("button.mine").siblings().css({"background-color" : "red"});
+				$("button.mine").siblings().appendTo(".enemy");
+				$(this).appendTo(".your");
+			})
+		},
+
+		// Move unpicked characters to available to attack section
+
+		rejected: function() {
+			
+		},
+
+		// Pick character to defend
+
+	} // Ends game object
 
 	// List char buttons on screen
 
 	game.charList();
 
+	// Pick character to be your character
 
+	game.pick();
+
+	// The rest of the chars move to enemies available to attack and get red background
+
+	game.rejected();
+
+	//If there is no one in defender section and you click attack info says "There is no enemy here. Pick someone to fight!"
+
+	// Pick a character to fight moves it to the defender section changes background to black
+
+	// Attack button deals damage, gets counter attacked, updates health on button, updates information about what is going on at the bottom
+
+	// If you die "You have been defeated...GAME OVER!!!" add a restart button
+
+	// If you beat a character: "You have defeated .name! Choose another enemy to fight!"
+
+
+	// call appendTo from enemies able to attack to defender
+
+	// If you have defeated all enemies info: "You won!!! GAME OVER!!!" append restart button under info
 
 
 
