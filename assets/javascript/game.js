@@ -12,25 +12,29 @@ $(document).ready(function(){
 
 			{name: "c3p0",
 			health: 120,
-			attack: 6,
+			attack: 20,
+			increase: 20,
 			counterattack: 25,
 			image: "<img src='assets/images/c3p0.jpg'>"},
 
 			{name: "King Jar Jar",
 			health: 100,
 			attack: 6,
+			increase: 6,
 			counterattack: 25,
 			image: "<img src='assets/images/kingjar.jpg'>"},
 
 			{name: "Jar Jar",
 			health: 150,
 			attack: 10,
+			increase: 10,
 			counterattack: 25,
 			image: "<img src='assets/images/jar.jpg'>"},
 
 			{name: "Sith Jar Jar",
 			health: 180,
 			attack: 10,
+			increase: 10,
 			counterattack: 25,
 			image: "<img src='assets/images/sithjar.jpg'>"}
 		],
@@ -51,7 +55,7 @@ $(document).ready(function(){
 				c.attr('data-name', game.characters[i].name);
 				c.append('<p>' + game.characters[i].name + '</p>');
 				c.append(game.characters[i].image);
-				c.append('<p>' + game.characters[i].health + '</p>');
+				c.append('<p id="hp">' + game.characters[i].health + '</p>');
 
 				$(".charSel").append(c);
 
@@ -87,7 +91,7 @@ $(document).ready(function(){
 		// Pick character to fight/send to defender
 
 		setEnemyListener: function() {
-			console.log(this);
+			
 			$(".enemy").on("click", function() {
 				if (game.clicks > 0) {
 					game.clicks++;
@@ -103,18 +107,80 @@ $(document).ready(function(){
 
 		attack: function () {
 
-			console.log($("#defender").hasClass("defender"));
 			$("#attack").on("click", function() {
 
-				if ($("#defender").hasClass("defender")) {
+				if ($("#defender button").hasClass("defender")) {
 
-				}
+					var player = game.characters[$(".mine").data('index')];
+
+					var comp = game.characters[$(".defender").data('index')];
+
+					comp.health = comp.health - player.attack;
+
+					$("#attackMsg").html("You attacked " + comp.name +" for " + player.attack + " damage.");
+
+					$(".defender #hp").html(comp.health);
+
+					// If you beat a character: "You have defeated .name! Choose another enemy to fight!" clicks reset to 1
+
+					game.compDeath();
+
+					player.attack = player.attack + player.increase;
+
+					player.health = player.health - comp.counterattack;
+
+					$("#counterattackMsg").html(comp.name + " attacked you back for " + comp.counterattack + " damage.");
+
+					$(".mine #hp").html(player.health);
+					console.log($(".mine #hp"));
+
+					// If you die "You have been defeated...GAME OVER!!!" add a restart button
+
+					game.death();
+
+				} // End of if statement you have a defender
 
 				else {
 					$("#attackMsg").html("There is no enemy. Pick someone to fight!");
-				}
-			});
+				} // End of else statement you have a defender
+			}); // End of attack button on click function
+		}, // End of Attack function
+
+		// If you die "You have been defeated...GAME OVER!!!" add a restart button
+
+		death: function() {
+			
+			var player = game.characters[$(".mine").data('index')];
+
+			var comp = game.characters[$(".defender").data('index')];
+
+			if (player.health <= 0) {
+				$("#attack").hide();
+				$("#attackMsg").html("You have been defeated...GAME OVER!!!");
+				$("#counterattackMsg").empty();
+				$("#reset").html("<button>Reset</button");
+			}
 		},
+
+		// If you beat a character: "You have defeated .name! Choose another enemy to fight!" clicks reset to 1
+
+		compDeath: function() {
+			if (comp.health <= 0) {
+				clicks = 1;
+				$(".defender").hide();
+				$("#attack").hide();
+				if (enemies to choose empty) ******* {
+					$("#attackMsg").html("You won!!! GAME OVER!!!");
+					$("#counterattackMsg").empty();
+					$("#reset").html("<button>Reset</button>");
+				} // End if statement beat them all
+
+				else {
+					$("#attackMsg").html("You have defeated " + comp.name + " . Choose another enemy to fight!");
+					$("#counterattackMsg").empty();
+				} // End else beat them all
+			} // End if statement comp 0 hp
+		}, // End function compDeath
 
 	}; // Ends game object
 
@@ -128,14 +194,18 @@ $(document).ready(function(){
  
 
 
-	// If you die "You have been defeated...GAME OVER!!!" add a restart button
+	
 
-	// If you beat a character: "You have defeated .name! Choose another enemy to fight!" clicks reset to 1
+
+
+	
 
 
 	// call appendTo from enemies able to attack to defender
 
 	// If you have defeated all enemies info: "You won!!! GAME OVER!!!" append restart button under info
+
+	// two reset button areas for what the reset does that means I should make a function for it
 
 
 
