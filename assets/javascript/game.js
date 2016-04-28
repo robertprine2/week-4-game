@@ -39,6 +39,10 @@ $(document).ready(function(){
 			image: "<img src='assets/images/sithjar.jpg'>"}
 		],
 
+		// Variable to keep track of if you won the game or still have enemies to defeat
+
+		compKills: 0,
+
 		// Variable to switch between button clicks to move the game forward
 
 		clicks: 0,
@@ -121,10 +125,6 @@ $(document).ready(function(){
 
 					$(".defender #hp").html(comp.health);
 
-					// If you beat a character: "You have defeated .name! Choose another enemy to fight!" clicks reset to 1
-
-					game.compDeath();
-
 					player.attack = player.attack + player.increase;
 
 					player.health = player.health - comp.counterattack;
@@ -137,6 +137,10 @@ $(document).ready(function(){
 					// If you die "You have been defeated...GAME OVER!!!" add a restart button
 
 					game.death();
+
+					// If you beat a character: "You have defeated .name! Choose another enemy to fight!" clicks reset to 1
+
+					game.compDeath();
 
 				} // End of if statement you have a defender
 
@@ -165,17 +169,23 @@ $(document).ready(function(){
 		// If you beat a character: "You have defeated .name! Choose another enemy to fight!" clicks reset to 1
 
 		compDeath: function() {
+			
+			var player = game.characters[$(".mine").data('index')];
+
+			var comp = game.characters[$(".defender").data('index')];
+
 			if (comp.health <= 0) {
 				clicks = 1;
 				$(".defender").hide();
 				$("#attack").hide();
-				if (enemies to choose empty) ******* {
+				if (compKills == 2) {
 					$("#attackMsg").html("You won!!! GAME OVER!!!");
 					$("#counterattackMsg").empty();
 					$("#reset").html("<button>Reset</button>");
 				} // End if statement beat them all
 
 				else {
+					compKills++;
 					$("#attackMsg").html("You have defeated " + comp.name + " . Choose another enemy to fight!");
 					$("#counterattackMsg").empty();
 				} // End else beat them all
