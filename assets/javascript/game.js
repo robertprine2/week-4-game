@@ -45,7 +45,7 @@ $(document).ready(function(){
 			for (var i = 0; i < game.characters.length; i++) {
 
 				var c = $('<button>');
-				c.addClass("char " + game.characters[i].name);
+				c.addClass("char ");
 				
 				c.attr('data-index', i); 
 				c.attr('data-name', game.characters[i].name);
@@ -70,25 +70,51 @@ $(document).ready(function(){
 					$("button.mine").siblings().removeClass("char").addClass("enemy");
 					$("button.mine").siblings().appendTo("#enemy");
 					$(this).appendTo(".your");
-				} // End clicks
+
+					// Pick character to fight/send to defender
+
+					game.setEnemyListener();
+
+					// Attack Button if no one to fight "There is no enemy here. Pick someone to fight!" otherwise Attack button deals damage, gets counter attacked, updates health on button, updates information about what is going on at the bottom
+
+					game.attack();
+
+				} // End clicks if
+				
 			});
 		},
 
 		// Pick character to fight/send to defender
 
-		enemy: function() {
-			console.log($(".enemy"));
+		setEnemyListener: function() {
+			console.log(this);
 			$(".enemy").on("click", function() {
 				if (game.clicks > 0) {
 					game.clicks++;
 					console.log(this);
-					$(".enemy").appendTo(".defender");
+					console.log(game.clicks);
+					$(this).removeClass("enemy").addClass("defender");
+					$(this).appendTo("#defender");
 				}
 			});
 		},
 
 		// Attack Button if no one to fight "There is no enemy here. Pick someone to fight!" otherwise Attack button deals damage, gets counter attacked, updates health on button, updates information about what is going on at the bottom
 
+		attack: function () {
+
+			console.log($("#defender").hasClass("defender"));
+			$("#attack").on("click", function() {
+
+				if ($("#defender").hasClass("defender")) {
+
+				}
+
+				else {
+					$("#attackMsg").html("There is no enemy. Pick someone to fight!");
+				}
+			});
+		},
 
 	}; // Ends game object
 
@@ -96,20 +122,15 @@ $(document).ready(function(){
 
 	game.charList();
 
-	// Pick character to be your character The rest of the chars move to enemies available to attack and get red background
+	// Pick character to be your character The rest of the chars move to enemies available to attack and get red background Pick character to fight/send to defender and get black background
 
 	game.pick();
-
-	//If there is no one in defender section and you click attack info says "There is no enemy here. Pick someone to fight!"
-
-	game.enemy();
-
-	// Pick a character to fight moves it to the defender section changes background to black
  
+
 
 	// If you die "You have been defeated...GAME OVER!!!" add a restart button
 
-	// If you beat a character: "You have defeated .name! Choose another enemy to fight!"
+	// If you beat a character: "You have defeated .name! Choose another enemy to fight!" clicks reset to 1
 
 
 	// call appendTo from enemies able to attack to defender
