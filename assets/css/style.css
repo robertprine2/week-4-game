@@ -18,6 +18,18 @@ h2 {
 	margin: 10px;
 }
 
+p {
+	line-height: 1.5;
+}
+
+/* Character Buttons */
+
+.char img {
+	height: 100px;
+	width: 100px;
+}
+
+
 
 /* Social Icons and footer */
 
